@@ -1,0 +1,38 @@
+<div class="header">
+  <!-- Логотип сайта -->
+  <div class="logo">
+    <img src="logo.png" alt="Site Logo" class="logo-icon">
+    <a routerLink="/"><span class="logo-text">ItLearnHub</span></a>
+  </div>
+
+  <!-- Ссылки и профиль -->
+  <div class="right-section" >
+    <!-- Профиль пользователя -->
+    <div class="user-profile">
+      <img src="image.png" alt="User Avatar" class="user-avatar" />
+      <a *ngIf="authService.isTeacher()">Teacher  {{user?.name}}</a>
+      <a *ngIf="authService.isStudent()">Student  {{user?.name}}</a>
+      <a *ngIf="authService.isVisitor()">Visitor</a>
+    </div>
+
+    <!-- Ссылки на обучение -->
+    <nav class="nav-links">
+      <a *ngIf="authService.isStudent()" routerLink="/student-courses">My Courses</a>
+      <a *ngIf="authService.isStudent()" routerLink="/progress">Progress</a>
+      <a *ngIf="authService.isTeacher()" routerLink="/teacher-lessons">My Lessons</a>
+    </nav>
+
+    <nav class="nav-links" *ngIf="authService.isVisitor()">
+      <a routerLink="/login" >Login</a>
+      <a routerLink="/signup" >Sign Up</a>
+    </nav>
+
+
+    <nav class="nav-links" *ngIf="!authService.isVisitor()">
+      <a (click)="logout()" class="btn-logout">Logout</a>
+    </nav>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+
